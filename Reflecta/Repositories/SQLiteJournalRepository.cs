@@ -35,9 +35,9 @@ public class SQLiteJournalRepository : IJournalRepository
     public async Task<int> SaveAsync(JournalEntry entry)
     {
         if (entry.Id == 0)
-            await _db.InsertAsync(entry);
+            await _db.InsertAsync(entry, typeof(JournalEntry));
         else
-            await _db.UpdateAsync(entry);
+            await _db.UpdateAsync(entry, typeof(JournalEntry));
         return entry.Id;
     }
 

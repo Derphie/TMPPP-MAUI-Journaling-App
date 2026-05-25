@@ -11,7 +11,7 @@ public enum MoodLabel { Unknown, Happy, Calm, Neutral, Stressed, Sad, Anxious }
 /// The [Table] / [PrimaryKey] attributes enable SQLite persistence via SQLiteJournalRepository.
 /// </summary>
 [Table("JournalEntries")]
-public abstract class JournalEntry
+public class JournalEntry
 {
     [PrimaryKey, AutoIncrement]
     public int Id { get; set; }

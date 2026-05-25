@@ -6,13 +6,11 @@ namespace Reflecta;
 public partial class App : Application
 {
     private readonly SeedDataService _seeder;
-    private readonly OnboardingPage  _onboarding;
 
-    public App(SeedDataService seeder, OnboardingPage onboarding)
+    public App(SeedDataService seeder)
     {
         InitializeComponent();
-        _seeder     = seeder;
-        _onboarding = onboarding;
+        _seeder = seeder;
     }
 
     protected override async void OnStart()
@@ -23,7 +21,9 @@ public partial class App : Application
 
     protected override Window CreateWindow(IActivationState? activationState)
     {
-        return new Window(_onboarding);
+        // Resolve after InitializeComponent so Application.Resources are ready
+        var onboarding = IPlatformApplication.Current!.Services.GetRequiredService<OnboardingPage>();
+        return new Window(onboarding);
     }
 
     /// <summary>Called by OnboardingViewModel.GetStartedCommand to switch to the main shell.</summary>

@@ -29,7 +29,7 @@ public static class MauiProgram
         var services = builder.Services;
 
         // ── Database path ──────────────────────────────────────────────────
-        var dbPath = Path.Combine(FileSystem.AppDataDirectory, "reflecta.db");
+        var dbPath = System.IO.Path.Combine(FileSystem.AppDataDirectory, "reflecta.db");
 
         // ── Repositories (singletons share the same DB file) ───────────────
         services.AddSingleton<IJournalRepository>(_ => new SQLiteJournalRepository(dbPath));

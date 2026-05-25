@@ -101,7 +101,7 @@
                     <Label Text="Export Journal" Style="{StaticResource SubheadingLabel}" />
                     <Label Text="Share a plain-text copy of all your entries"
                            Style="{StaticResource MutedLabel}" />
-                    <controls:PrimaryButton Text="Export & Share"
+                    <controls:PrimaryButton Text="Export and Share"
                                            Command="{Binding ExportJournalCommand}" />
                 </VerticalStackLayout>
             </Border>

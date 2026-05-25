@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0-android</TargetFrameworks>
+    <TargetFrameworks>net9.0-android</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <RootNamespace>Reflecta</RootNamespace>
     <UseMaui>true</UseMaui>
@@ -24,11 +24,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.120" />
+    <PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
-    <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.8" />
+    <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.10" />
     <PackageReference Include="Microcharts.Maui" Version="0.9.5.9" />
+    <PackageReference Include="SkiaSharp" Version="2.88.8" />
+    <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.8" />
   </ItemGroup>
 
 </Project>

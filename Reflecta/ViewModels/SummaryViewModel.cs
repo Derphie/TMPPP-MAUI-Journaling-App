@@ -90,7 +90,6 @@ public partial class SummaryViewModel : BaseViewModel
             BackgroundColor    = SKColor.Parse("#1A1825"),
             LabelColor         = white,
             LabelTextSize      = 28,
-            ValueLabelTextSize = 26,
             AnimationDuration  = TimeSpan.FromMilliseconds(500),
             MinValue           = 0,
             MaxValue           = 10,
