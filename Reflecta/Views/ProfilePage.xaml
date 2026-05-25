@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Reflecta.ViewModels"
+             xmlns:controls="clr-namespace:Reflecta.Views.Controls"
+             x:Class="Reflecta.Views.ProfilePage"
+             x:DataType="vm:ProfileViewModel"
+             Title="Profile"
+             BackgroundColor="{StaticResource AppBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <!-- ── Header ── -->
+            <Label Text="Profile" Style="{StaticResource HeadingLabel}" Margin="0,8,0,0"/>
+
+            <!-- ── Avatar + Name ── -->
+            <Border Style="{StaticResource CardBorder}">
+                <HorizontalStackLayout Spacing="16">
+                    <Border WidthRequest="64" HeightRequest="64"
+                            BackgroundColor="{StaticResource ChipBackground}"
+                            StrokeThickness="0">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="32"/></Border.StrokeShape>
+                        <Label Text="{Binding AvatarEmoji}" FontSize="32"
+                               HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <VerticalStackLayout VerticalOptions="Center" Spacing="4">
+                        <Label Text="{Binding UserName}"
+                               Style="{StaticResource SubheadingLabel}" />
+                        <Label Text="{Binding MemberSince, StringFormat='Member since {0}'}"
+                               Style="{StaticResource MutedLabel}" />
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </Border>
+
+            <!-- ── Stats ── -->
+            <Border Style="{StaticResource CardBorder}">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" RowSpacing="4">
+                    <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="4">
+                        <Label Text="{Binding TotalEntries}"
+                               Style="{StaticResource HeadingLabel}"
+                               TextColor="{StaticResource PrimaryStart}"
+                               HorizontalOptions="Center" />
+                        <Label Text="Total Entries" Style="{StaticResource MutedLabel}"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="4">
+                        <Label Text="{Binding CurrentStreak, StringFormat='{0}🔥'}"
+                               Style="{StaticResource HeadingLabel}"
+                               TextColor="{StaticResource PrimaryStart}"
+                               HorizontalOptions="Center" />
+                        <Label Text="Day Streak" Style="{StaticResource MutedLabel}"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <!-- ── Reminder ── -->
+            <Border Style="{StaticResource CardBorder}">
+                <VerticalStackLayout Spacing="14">
+                    <Label Text="Daily Reminder" Style="{StaticResource SubheadingLabel}" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Grid.Column="0" Text="Enable reminders"
+                               Style="{StaticResource BodyLabel}" VerticalOptions="Center"/>
+                        <Switch Grid.Column="1"
+                                IsToggled="{Binding NotificationsEnabled}"
+                                OnColor="{StaticResource PrimaryStart}" />
+                    </Grid>
+                    <Border BackgroundColor="{StaticResource InputBackground}"
+                            StrokeThickness="1" Stroke="{StaticResource SurfaceBorder}"
+                            Padding="14,10" IsVisible="{Binding NotificationsEnabled}">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="12"/></Border.StrokeShape>
+                        <Entry Placeholder="21:00" Text="{Binding ReminderTime}"
+                               Keyboard="Default" />
+                    </Border>
+                    <controls:PrimaryButton Text="Save Reminder"
+                                           Command="{Binding SaveReminderCommand}"
+                                           IsVisible="{Binding NotificationsEnabled}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- ── Mood analysis strategy ── -->
+            <Border Style="{StaticResource CardBorder}">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Analysis Strategy" Style="{StaticResource SubheadingLabel}" />
+                    <Label Text="Choose how Reflecta analyses your mood" Style="{StaticResource MutedLabel}" />
+                    <Picker SelectedIndex="{Binding StrategyIndex}"
+                            TextColor="{StaticResource PrimaryText}"
+                            BackgroundColor="Transparent">
+                        <Picker.Items>
+                            <x:String>Simple (Offline)</x:String>
+                            <x:String>AI Weighted</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- ── Export ── -->
+            <Border Style="{StaticResource CardBorder}">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Export Journal" Style="{StaticResource SubheadingLabel}" />
+                    <Label Text="Share a plain-text copy of all your entries"
+                           Style="{StaticResource MutedLabel}" />
+                    <controls:PrimaryButton Text="Export & Share"
+                                           Command="{Binding ExportJournalCommand}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- ── About ── -->
+            <Border Style="{StaticResource CardBorder}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Reflecta v1.0" Style="{StaticResource SubheadingLabel}" />
+                    <Label Text="AI-powered journaling with 12 GoF design patterns"
+                           Style="{StaticResource MutedLabel}" />
+                    <Label Text="Built with .NET 8 MAUI · MVVM · SQLite"
+                           Style="{StaticResource CaptionLabel}" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

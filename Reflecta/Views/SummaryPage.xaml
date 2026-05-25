@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Reflecta.ViewModels"
+             xmlns:controls="clr-namespace:Reflecta.Views.Controls"
+             xmlns:models="clr-namespace:Reflecta.Models"
+             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             x:Class="Reflecta.Views.SummaryPage"
+             x:DataType="vm:SummaryViewModel"
+             Title="Summary"
+             BackgroundColor="{StaticResource AppBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <!-- ── Header ── -->
+            <Grid ColumnDefinitions="*,Auto" Margin="0,8,0,0">
+                <Label Grid.Column="0" Text="Summary"
+                       Style="{StaticResource HeadingLabel}" VerticalOptions="Center"/>
+                <Border Grid.Column="1" WidthRequest="40" HeightRequest="40"
+                        BackgroundColor="{StaticResource ChipBackground}"
+                        StrokeThickness="0">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20"/></Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ExportCommand}" />
+                    </Border.GestureRecognizers>
+                    <Label Text="⬇" FontSize="18" TextColor="{StaticResource PrimaryStart}"
+                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Border>
+            </Grid>
+
+            <!-- ── Period segmented toggle ── -->
+            <Border BackgroundColor="{StaticResource SurfaceColor}"
+                    StrokeThickness="1" Stroke="{StaticResource SurfaceBorder}"
+                    Padding="4">
+                <Border.StrokeShape><RoundRectangle CornerRadius="14"/></Border.StrokeShape>
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="4">
+                    <Border x:Name="BtnDaily" Grid.Column="0" Padding="0,8" StrokeThickness="0">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="10"/></Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPeriodTapped" CommandParameter="0"/>
+                        </Border.GestureRecognizers>
+                        <Label x:Name="LblDaily" Text="Daily" FontSize="14" FontAttributes="Bold"
+                               HorizontalOptions="Center" TextColor="{StaticResource SecondaryText}"/>
+                    </Border>
+                    <Border x:Name="BtnWeekly" Grid.Column="1" Padding="0,8" StrokeThickness="0"
+                            BackgroundColor="{StaticResource ChipBackground}">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="10"/></Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPeriodTapped" CommandParameter="1"/>
+                        </Border.GestureRecognizers>
+                        <Label x:Name="LblWeekly" Text="Weekly" FontSize="14" FontAttributes="Bold"
+                               HorizontalOptions="Center" TextColor="{StaticResource PrimaryStart}"/>
+                    </Border>
+                    <Border x:Name="BtnMonthly" Grid.Column="2" Padding="0,8" StrokeThickness="0">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="10"/></Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPeriodTapped" CommandParameter="2"/>
+                        </Border.GestureRecognizers>
+                        <Label x:Name="LblMonthly" Text="Monthly" FontSize="14" FontAttributes="Bold"
+                               HorizontalOptions="Center" TextColor="{StaticResource SecondaryText}"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- ── AI Insight card ── -->
+            <Border StrokeThickness="1" Stroke="{StaticResource PrimaryStart}" Padding="0">
+                <Border.StrokeShape><RoundRectangle CornerRadius="16"/></Border.StrokeShape>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#1F1228" Offset="0"/>
+                        <GradientStop Color="#1A1825" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <VerticalStackLayout Padding="16" Spacing="10">
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="✦" FontSize="18" TextColor="{StaticResource PrimaryStart}" />
+                        <Label Text="This Week's Insight" Style="{StaticResource SubheadingLabel}" />
+                    </HorizontalStackLayout>
+                    <Label Text="{Binding InsightText}"
+                           Style="{StaticResource BodyLabel}"
+                           FontSize="14"
+                           LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- ── Mood Trends chart card ── -->
+            <Border BackgroundColor="{StaticResource SurfaceColor}"
+                    StrokeThickness="1" Stroke="{StaticResource SurfaceBorder}"
+                    Padding="16">
+                <Border.StrokeShape><RoundRectangle CornerRadius="16"/></Border.StrokeShape>
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Mood Trends" Style="{StaticResource SubheadingLabel}" />
+                    <microcharts:ChartView Chart="{Binding MoodChart}"
+                                          HeightRequest="200"
+                                          BackgroundColor="Transparent" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- ── Key Themes card ── -->
+            <Border BackgroundColor="{StaticResource SurfaceColor}"
+                    StrokeThickness="1" Stroke="{StaticResource SurfaceBorder}"
+                    Padding="16">
+                <Border.StrokeShape><RoundRectangle CornerRadius="16"/></Border.StrokeShape>
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Key Themes" Style="{StaticResource SubheadingLabel}" />
+                    <FlexLayout Direction="Row" Wrap="Wrap" JustifyContent="Start"
+                                BindableLayout.ItemsSource="{Binding ThemeItems}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="models:ThemeItem">
+                                <controls:TagChip Text="{Binding Label}" Margin="0,0,8,8" />
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                    <Label Text="No themes detected yet. Keep journaling! 📔"
+                           Style="{StaticResource MutedLabel}"
+                           IsVisible="{Binding HasNoThemes}" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

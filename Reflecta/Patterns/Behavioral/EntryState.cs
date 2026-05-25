@@ -1,0 +1,122 @@
+using Reflecta.Models;
+
+namespace Reflecta.Patterns.Behavioral;
+
+// ── PATTERN 11: State ────────────────────────────────────────────────────
+// JournalEntry delegates lifecycle operations (edit, save, archive) to its
+// current IEntryState object.  Illegal transitions throw InvalidOperationException,
+// making the lifecycle self-documenting and enforced by the type system.
+
+/// <summary>State interface — each concrete state defines which actions are valid.</summary>
+public interface IEntryState
+{
+    string Name { get; }
+    void BeginEdit(JournalEntry entry);
+    void Save(JournalEntry entry);
+    void Archive(JournalEntry entry);
+    void Restore(JournalEntry entry);
+}
+
+/// <summary>Draft — entry has been created but not yet edited or saved.</summary>
+public class DraftState : IEntryState
+{
+    public string Name => "Draft";
+
+    public void BeginEdit(JournalEntry entry)
+    {
+        entry.StateName = "Editing";
+    }
+
+    public void Save(JournalEntry entry)
+    {
+        entry.UpdatedAt = DateTime.Now;
+        entry.StateName = "Saved";
+    }
+
+    public void Archive(JournalEntry entry) =>
+        throw new InvalidOperationException("Cannot archive an unsaved draft.");
+
+    public void Restore(JournalEntry entry) =>
+        throw new InvalidOperationException("Draft has not been archived.");
+}
+
+/// <summary>Editing — entry is currently being modified.</summary>
+public class EditingState : IEntryState
+{
+    public string Name => "Editing";
+
+    public void BeginEdit(JournalEntry entry) { /* already editing — no-op */ }
+
+    public void Save(JournalEntry entry)
+    {
+        entry.UpdatedAt = DateTime.Now;
+        entry.StateName = "Saved";
+    }
+
+    public void Archive(JournalEntry entry) =>
+        throw new InvalidOperationException("Save before archiving.");
+
+    public void Restore(JournalEntry entry) =>
+        throw new InvalidOperationException("Entry is being edited.");
+}
+
+/// <summary>Saved — entry is persisted and read-only until edited again.</summary>
+public class SavedState : IEntryState
+{
+    public string Name => "Saved";
+
+    public void BeginEdit(JournalEntry entry)
+    {
+        entry.StateName = "Editing";
+    }
+
+    public void Save(JournalEntry entry) { /* idempotent re-save */ }
+
+    public void Archive(JournalEntry entry)
+    {
+        entry.IsArchived = true;
+        entry.StateName  = "Archived";
+    }
+
+    public void Restore(JournalEntry entry) =>
+        throw new InvalidOperationException("Entry is not archived.");
+}
+
+/// <summary>Archived — entry is hidden from the main list; can be restored.</summary>
+public class ArchivedState : IEntryState
+{
+    public string Name => "Archived";
+
+    public void BeginEdit(JournalEntry entry) =>
+        throw new InvalidOperationException("Restore the entry before editing.");
+
+    public void Save(JournalEntry entry) =>
+        throw new InvalidOperationException("Cannot save an archived entry.");
+
+    public void Archive(JournalEntry entry) { /* already archived — no-op */ }
+
+    public void Restore(JournalEntry entry)
+    {
+        entry.IsArchived = false;
+        entry.StateName  = "Saved";
+    }
+}
+
+/// <summary>Resolves the correct IEntryState from a JournalEntry's StateName string.</summary>
+public static class EntryStateFactory
+{
+    public static IEntryState Resolve(JournalEntry entry) => entry.StateName switch
+    {
+        "Draft"    => new DraftState(),
+        "Editing"  => new EditingState(),
+        "Saved"    => new SavedState(),
+        "Archived" => new ArchivedState(),
+        _          => new DraftState()
+    };
+
+    public static void Transition(JournalEntry entry, Action<IEntryState> action)
+    {
+        var state = Resolve(entry);
+        action(state);
+    }
+}

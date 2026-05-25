@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:Reflecta.Views"
+       x:Class="Reflecta.AppShell"
+       Shell.NavBarIsVisible="False"
+       Shell.TabBarBackgroundColor="{StaticResource SurfaceColor}"
+       Shell.TabBarForegroundColor="{StaticResource TabActive}"
+       Shell.TabBarUnselectedColor="{StaticResource TabInactive}"
+       Shell.TabBarTitleColor="{StaticResource TabActive}">
+
+    <TabBar>
+        <ShellContent Title="Chat"
+                      Icon="tab_chat.png"
+                      Route="chat"
+                      ContentTemplate="{DataTemplate views:ChatPage}" />
+        <ShellContent Title="Journal"
+                      Icon="tab_journal.png"
+                      Route="journal"
+                      ContentTemplate="{DataTemplate views:JournalPage}" />
+        <ShellContent Title="Summary"
+                      Icon="tab_summary.png"
+                      Route="summary"
+                      ContentTemplate="{DataTemplate views:SummaryPage}" />
+        <ShellContent Title="Profile"
+                      Icon="tab_profile.png"
+                      Route="profile"
+                      ContentTemplate="{DataTemplate views:ProfilePage}" />
+    </TabBar>
+
+</Shell>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Colors.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- ── Page ── -->
+    <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+        <Setter Property="BackgroundColor" Value="{StaticResource AppBackground}" />
+    </Style>
+
+    <!-- ── Shell ── -->
+    <Style TargetType="Shell" ApplyToDerivedTypes="True">
+        <Setter Property="Shell.BackgroundColor" Value="{StaticResource SurfaceColor}" />
+        <Setter Property="Shell.ForegroundColor" Value="{StaticResource PrimaryText}" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource SurfaceColor}" />
+        <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource TabActive}" />
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource TabInactive}" />
+        <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource TabActive}" />
+    </Style>
+
+    <!-- ── Labels ── -->
+    <Style x:Key="HeadingLabel" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style x:Key="SubheadingLabel" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style x:Key="BodyLabel" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
+        <Setter Property="FontSize" Value="15" />
+    </Style>
+
+    <Style x:Key="MutedLabel" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource SecondaryText}" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <Style x:Key="CaptionLabel" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource SecondaryText}" />
+        <Setter Property="FontSize" Value="11" />
+    </Style>
+
+    <!-- ── Entry ── -->
+    <Style TargetType="Entry" ApplyToDerivedTypes="True">
+        <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource SecondaryText}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="FontSize" Value="15" />
+    </Style>
+
+    <!-- ── Editor ── -->
+    <Style TargetType="Editor" ApplyToDerivedTypes="True">
+        <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource SecondaryText}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="FontSize" Value="15" />
+    </Style>
+
+    <!-- ── Card Border ── -->
+    <Style x:Key="CardBorder" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="Stroke" Value="{StaticResource SurfaceBorder}" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 16" />
+        <Setter Property="Padding" Value="16" />
+    </Style>
+
+    <!-- ── SearchBar ── -->
+    <Style TargetType="SearchBar" ApplyToDerivedTypes="True">
+        <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource SecondaryText}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+        <Setter Property="CancelButtonColor" Value="{StaticResource SecondaryText}" />
+    </Style>
+
+    <!-- ── ScrollView ── -->
+    <Style TargetType="ScrollView" ApplyToDerivedTypes="True">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+    </Style>
+
+    <!-- ── CollectionView ── -->
+    <Style TargetType="CollectionView" ApplyToDerivedTypes="True">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Reflecta.Views.Controls.MessageBubble">
+    <Grid Margin="0,4">
+        <!-- AI bubble (left) -->
+        <Grid x:Name="AiBubbleContainer"
+              HorizontalOptions="Start"
+              MaximumWidthRequest="300"
+              IsVisible="False">
+            <Border BackgroundColor="{StaticResource AiBubble}"
+                    StrokeThickness="1"
+                    Stroke="{StaticResource SurfaceBorder}"
+                    Padding="14,10">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18,18,18,4" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="4">
+                    <Label x:Name="AiText"
+                           TextColor="{StaticResource PrimaryText}"
+                           FontSize="14"
+                           LineBreakMode="WordWrap" />
+                    <Label x:Name="AiTimestamp"
+                           TextColor="{StaticResource SecondaryText}"
+                           FontSize="11"
+                           HorizontalOptions="End" />
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+        <!-- User bubble (right) -->
+        <Grid x:Name="UserBubbleContainer"
+              HorizontalOptions="End"
+              MaximumWidthRequest="300"
+              IsVisible="False">
+            <Border BackgroundColor="{StaticResource UserBubble}"
+                    StrokeThickness="0"
+                    Padding="14,10">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18,18,4,18" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="4">
+                    <Label x:Name="UserText"
+                           TextColor="{StaticResource PrimaryText}"
+                           FontSize="14"
+                           LineBreakMode="WordWrap" />
+                    <Label x:Name="UserTimestamp"
+                           TextColor="{StaticResource SecondaryText}"
+                           FontSize="11"
+                           HorizontalOptions="End" />
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentView>

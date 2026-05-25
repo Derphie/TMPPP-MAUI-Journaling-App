@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Reflecta.ViewModels"
+             xmlns:controls="clr-namespace:Reflecta.Views.Controls"
+             xmlns:models="clr-namespace:Reflecta.Models"
+             x:Class="Reflecta.Views.ChatPage"
+             x:DataType="vm:ChatViewModel"
+             Title="Chat"
+             BackgroundColor="{StaticResource AppBackground}">
+
+    <Grid RowDefinitions="Auto,*,Auto,Auto">
+
+        <!-- ── Header ── -->
+        <Border Grid.Row="0"
+                BackgroundColor="{StaticResource SurfaceColor}"
+                StrokeThickness="0" Padding="16,12">
+            <HorizontalStackLayout Spacing="12">
+                <Border WidthRequest="42" HeightRequest="42"
+                        BackgroundColor="{StaticResource ChipBackground}"
+                        StrokeThickness="0">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="21"/></Border.StrokeShape>
+                    <Label Text="✦" FontSize="22" TextColor="{StaticResource PrimaryStart}"
+                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Border>
+                <VerticalStackLayout VerticalOptions="Center">
+                    <Label Text="Reflecta" Style="{StaticResource SubheadingLabel}" />
+                    <Label Text="Your AI reflection companion"
+                           Style="{StaticResource MutedLabel}" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+        </Border>
+
+        <!-- ── Messages list ── -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Messages}"
+                        x:Name="MessagesCollection"
+                        Margin="16,8">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ChatMessage">
+                    <controls:MessageBubble
+                        MessageText="{Binding Text}"
+                        IsUserMessage="{Binding IsUser}"
+                        TimestampText="{Binding TimeDisplay}"
+                        Margin="0,2" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="12">
+                    <Label Text="✦" FontSize="40" TextColor="{StaticResource PrimaryStart}"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Start the conversation"
+                           Style="{StaticResource MutedLabel}"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <!-- ── Suggested replies ── -->
+        <ScrollView Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalScrollBarVisibility="Never"
+                    Padding="16,0,16,8">
+            <HorizontalStackLayout Spacing="8" BindableLayout.ItemsSource="{Binding SuggestedReplies}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Border BackgroundColor="{StaticResource ChipBackground}"
+                                Padding="12,6" StrokeThickness="1"
+                                Stroke="{StaticResource PrimaryStart}">
+                            <Border.StrokeShape><RoundRectangle CornerRadius="16"/></Border.StrokeShape>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.UseSuggestedReplyCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="{Binding .}"
+                                   TextColor="{StaticResource ChipText}"
+                                   FontSize="13" />
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <!-- ── Input bar ── -->
+        <Border Grid.Row="3"
+                BackgroundColor="{StaticResource SurfaceColor}"
+                StrokeThickness="0" Padding="12,10">
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                <Border Grid.Column="0"
+                        BackgroundColor="{StaticResource InputBackground}"
+                        StrokeThickness="1" Stroke="{StaticResource SurfaceBorder}"
+                        Padding="14,10">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="24"/></Border.StrokeShape>
+                    <Entry Placeholder="Message Reflecta..."
+                           Text="{Binding InputText}"
+                           ReturnCommand="{Binding SendMessageCommand}"
+                           ReturnType="Send" />
+                </Border>
+
+                <Border Grid.Column="1"
+                        WidthRequest="48" HeightRequest="48"
+                        StrokeThickness="0">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="24"/></Border.StrokeShape>
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#A855F7" Offset="0"/>
+                            <GradientStop Color="#7C3AED" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SendMessageCommand}" />
+                    </Border.GestureRecognizers>
+                    <Label Text="➤" FontSize="20" TextColor="White"
+                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Border>
+            </Grid>
+        </Border>
+
+    </Grid>
+</ContentPage>

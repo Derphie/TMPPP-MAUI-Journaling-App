@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Border xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="Reflecta.Views.Controls.PrimaryButton"
+        StrokeThickness="0"
+        Padding="0"
+        HeightRequest="52">
+    <Border.StrokeShape>
+        <RoundRectangle CornerRadius="26" />
+    </Border.StrokeShape>
+    <Border.Background>
+        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+            <GradientStop Color="#A855F7" Offset="0" />
+            <GradientStop Color="#7C3AED" Offset="1" />
+        </LinearGradientBrush>
+    </Border.Background>
+
+    <Grid>
+        <Label x:Name="ButtonLabel"
+               TextColor="White"
+               FontSize="16"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnTapped" />
+        </Grid.GestureRecognizers>
+    </Grid>
+</Border>
