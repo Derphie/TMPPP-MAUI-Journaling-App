@@ -59,15 +59,39 @@ dotnet build -f net8.0-android -c Debug
 | Charts | Microcharts.Maui 0.9.5 |
 | MAUI extras | CommunityToolkit.Maui 7.0 |
 
-## AI Service
+## AI Backend (Flask + OpenRouter)
+
+A lightweight Flask server lives in `backend/`. It proxies chat and mood-analysis
+requests to OpenRouter (`meta-llama/llama-3.3-70b-instruct:free`) and returns
+`{"reply": "...", "mood": "happy|calm|neutral|stressed|sad"}`.
+
+```bash
+cd backend
+pip install -r requirements.txt
+
+export OPENROUTER_API_KEY="sk-or-v1-..."   # your key — never commit this
+python app.py
+```
+
+Then expose it via ngrok and set `AppConfig.AiBaseUrl` + `UseRemoteAi = true` in
+`Reflecta/Services/AppConfig.cs`.
+
+> **The API key must never be committed.** Use `export` or a `.env` file
+> (already in `.gitignore`). Rotate the key immediately if it is ever exposed.
+
+### Endpoints
+
+| Method | Path | Purpose |
+|--------|------|---------|
+| GET | `/health` | Liveness check |
+| POST | `/chat` | Chat with conversation history (`{"message":"...","history":[...]}`) |
+| POST | `/reflect` | Single-turn mood analysis (`{"message":"..."}`) |
+
+## AI Service (MAUI)
 
 `MockAiService` does keyword matching fully offline — good for the demo.  
-To wire a real LLM, implement `IAiService` and swap the DI registration in `MauiProgram.cs`:
-
-```csharp
-// services.AddSingleton<IAiService, MockAiService>();
-services.AddSingleton<IAiService, OpenAiService>(); // your implementation
-```
+Set `AppConfig.UseRemoteAi = true` and point `AiBaseUrl` at your ngrok tunnel
+to switch to `HttpAiService` at runtime — no other code changes needed.
 
 ## Design System
 
