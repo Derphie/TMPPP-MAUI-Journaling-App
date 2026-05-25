@@ -41,15 +41,14 @@ public static class MauiProgram
 
         if (AppConfig.UseRemoteAi)
         {
-            // Typed HttpClient: ngrok header + 15 s timeout
+            // 70 s timeout: Render free tier can take ~50 s to wake from idle
             services.AddSingleton<IAiService>(sp =>
             {
                 var http = new HttpClient
                 {
                     BaseAddress = new Uri(AppConfig.AiBaseUrl),
-                    Timeout     = TimeSpan.FromSeconds(15)
+                    Timeout     = TimeSpan.FromSeconds(70)
                 };
-                http.DefaultRequestHeaders.Add("ngrok-skip-browser-warning", "true");
                 return new HttpAiService(http, sp.GetRequiredService<MockAiService>());
             });
         }
