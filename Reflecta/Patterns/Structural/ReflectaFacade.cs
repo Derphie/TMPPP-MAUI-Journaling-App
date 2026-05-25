@@ -64,8 +64,23 @@ public class ReflectaFacade
     /// <summary>Deletes an entry by id.</summary>
     public Task DeleteEntryAsync(int id) => _journal.DeleteAsync(id);
 
-    /// <summary>Returns all entries ordered by creation date (newest first).</summary>
-    public Task<List<JournalEntry>> GetEntriesAsync() => _journal.GetAllAsync();
+    /// <summary>
+    /// Toggles the pinned flag using the Decorator pattern's IsPinned signal without
+    /// re-running mood analysis (avoids unnecessary AI/strategy overhead).
+    /// </summary>
+    public async Task TogglePinAsync(JournalEntry entry)
+    {
+        entry.IsPinned  = !entry.IsPinned;
+        entry.UpdatedAt = DateTime.Now;
+        await _journal.SaveAsync(entry);
+    }
+
+    /// <summary>Returns all entries: pinned first, then newest.</summary>
+    public async Task<List<JournalEntry>> GetEntriesAsync()
+    {
+        var all = await _journal.GetAllAsync();
+        return [.. all.OrderByDescending(e => e.IsPinned).ThenByDescending(e => e.CreatedAt)];
+    }
 
     /// <summary>Generates a weekly summary using the current mood strategy.</summary>
     public async Task<WeeklySummary> GetWeeklySummaryAsync()
@@ -93,6 +108,10 @@ public class ReflectaFacade
 
     public Task<string> GetAiResponseAsync(string text) =>
         _ai.GetReflectionAsync(text);
+
+    /// <summary>Chat response with optional conversation history for context-aware replies.</summary>
+    public Task<string> GetAiChatResponseAsync(string text, IEnumerable<string> history) =>
+        _ai.GetChatResponseAsync(text, history);
 
     // ── Private helpers ──────────────────────────────────────────────────
 

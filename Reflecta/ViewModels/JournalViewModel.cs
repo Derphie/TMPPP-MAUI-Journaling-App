@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Reflecta.Models;
@@ -127,6 +128,13 @@ public partial class JournalViewModel : BaseViewModel
         var cmd = new DeleteEntryCommand(_facade, entry);
         await _invoker.ExecuteAsync(cmd);
         Entries.Remove(entry);
+
+        var snackbar = Snackbar.Make(
+            "Entry deleted — Undo",
+            async () => { await _invoker.UndoLastAsync(); await InitializeAsync(); },
+            "Undo",
+            TimeSpan.FromSeconds(4));
+        await snackbar.Show();
     }
 
     [RelayCommand]
@@ -136,6 +144,36 @@ public partial class JournalViewModel : BaseViewModel
         {
             await _invoker.UndoLastAsync();
             await InitializeAsync();
+        }
+    }
+
+    /// <summary>
+    /// Opens a Material bottom-sheet action menu for the given entry.
+    /// Uses Command pattern (DeleteEntryCommand) and Decorator pattern (TogglePinAsync).
+    /// </summary>
+    [RelayCommand]
+    private async Task ShowEntryMenuAsync(JournalEntry entry)
+    {
+        string? action = await Shell.Current.DisplayActionSheet(
+            null,
+            "Cancel",
+            null,
+            entry.IsPinned ? "📌 Unpin" : "📌 Pin",
+            "🗑️ Delete");
+
+        if (action is "📌 Pin" or "📌 Unpin")
+        {
+            await TogglePinAsync(entry);
+        }
+        else if (action == "🗑️ Delete")
+        {
+            bool confirmed = await Shell.Current.DisplayAlert(
+                "Delete Entry",
+                "Delete this journal entry? You can undo right after.",
+                "Delete",
+                "Cancel");
+            if (confirmed)
+                await DeleteEntryAsync(entry);
         }
     }
 
@@ -154,8 +192,7 @@ public partial class JournalViewModel : BaseViewModel
     [RelayCommand]
     private async Task TogglePinAsync(JournalEntry entry)
     {
-        entry.IsPinned = !entry.IsPinned;
-        await _facade.SaveEntryAsync(entry);
+        await _facade.TogglePinAsync(entry);
         await InitializeAsync();
     }
 

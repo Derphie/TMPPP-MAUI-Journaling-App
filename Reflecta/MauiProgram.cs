@@ -22,21 +22,41 @@ public static class MauiProgram
             .UseMicrocharts()
             .ConfigureFonts(fonts =>
             {
-                fonts.AddFont("OpenSans-Regular.ttf",    "OpenSansRegular");
-                fonts.AddFont("OpenSans-Semibold.ttf",   "OpenSansSemibold");
+                fonts.AddFont("OpenSans-Regular.ttf",  "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
         var services = builder.Services;
 
-        // ── Database path ──────────────────────────────────────────────────
+        // ── Database path ─────────────────────────────────────────────────
         var dbPath = System.IO.Path.Combine(FileSystem.AppDataDirectory, "reflecta.db");
 
-        // ── Repositories (singletons share the same DB file) ───────────────
+        // ── Repositories (singletons share the same DB file) ──────────────
         services.AddSingleton<IJournalRepository>(_ => new SQLiteJournalRepository(dbPath));
         services.AddSingleton<IChatRepository>(_ =>    new SQLiteChatRepository(dbPath));
 
-        // ── AI service ─────────────────────────────────────────────────────
-        services.AddSingleton<IAiService, MockAiService>();
+        // ── AI service ────────────────────────────────────────────────────
+        // MockAiService is always registered so HttpAiService can use it as a fallback.
+        services.AddSingleton<MockAiService>();
+
+        if (AppConfig.UseRemoteAi)
+        {
+            // Typed HttpClient: ngrok header + 15 s timeout
+            services.AddSingleton<IAiService>(sp =>
+            {
+                var http = new HttpClient
+                {
+                    BaseAddress = new Uri(AppConfig.AiBaseUrl),
+                    Timeout     = TimeSpan.FromSeconds(15)
+                };
+                http.DefaultRequestHeaders.Add("ngrok-skip-browser-warning", "true");
+                return new HttpAiService(http, sp.GetRequiredService<MockAiService>());
+            });
+        }
+        else
+        {
+            services.AddSingleton<IAiService>(sp => sp.GetRequiredService<MockAiService>());
+        }
 
         // ── Pattern 3: Abstract Factory — platform-specific service family ─
         services.AddSingleton<IServiceAbstractFactory>(_ => ServiceAbstractFactoryResolver.Resolve());
@@ -45,10 +65,10 @@ public static class MauiProgram
         services.AddSingleton<IShareService>(sp =>
             sp.GetRequiredService<IServiceAbstractFactory>().CreateShareService());
 
-        // ── Export service ──────────────────────────────────────────────────
+        // ── Export service ────────────────────────────────────────────────
         services.AddSingleton<IExportService, ExportService>();
 
-        // ── Pattern 9: Observer — mood subject + concrete observers ─────────
+        // ── Pattern 9: Observer — mood subject + concrete observers ───────
         services.AddSingleton<MoodSubject>();
         services.AddSingleton<SummaryChartObserver>(sp =>
         {
@@ -64,31 +84,34 @@ public static class MauiProgram
             return obs;
         });
 
-        // ── Pattern 10: Strategy — mood analysis ────────────────────────────
+        // ── Pattern 10: Strategy — AIWeightedStrategy routes through HttpAiService
+        //    when UseRemoteAi is true; otherwise SimpleAnalysisStrategy runs offline.
         services.AddSingleton<IMoodAnalysisStrategy>(sp =>
-            new SimpleAnalysisStrategy()); // swap to AIWeightedStrategy for AI mode
+            AppConfig.UseRemoteAi
+                ? (IMoodAnalysisStrategy) new AIWeightedStrategy(sp.GetRequiredService<IAiService>())
+                : new SimpleAnalysisStrategy());
 
-        // ── Pattern 6: Facade ───────────────────────────────────────────────
+        // ── Pattern 6: Facade ─────────────────────────────────────────────
         services.AddSingleton<ReflectaFacade>();
 
-        // ── Seed data ────────────────────────────────────────────────────────
+        // ── Seed data ─────────────────────────────────────────────────────
         services.AddSingleton<SeedDataService>();
 
-        // ── ViewModels ───────────────────────────────────────────────────────
+        // ── ViewModels ────────────────────────────────────────────────────
         services.AddSingleton<OnboardingViewModel>();
         services.AddSingleton<ChatViewModel>();
         services.AddSingleton<JournalViewModel>();
         services.AddSingleton<SummaryViewModel>();
         services.AddSingleton<ProfileViewModel>();
 
-        // ── Pages ────────────────────────────────────────────────────────────
+        // ── Pages ─────────────────────────────────────────────────────────
         services.AddSingleton<OnboardingPage>();
         services.AddSingleton<ChatPage>();
         services.AddSingleton<JournalPage>();
         services.AddSingleton<SummaryPage>();
         services.AddSingleton<ProfilePage>();
 
-        // ── App ──────────────────────────────────────────────────────────────
+        // ── App ───────────────────────────────────────────────────────────
         services.AddSingleton<App>();
 
         return builder.Build();

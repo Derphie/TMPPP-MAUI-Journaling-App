@@ -11,74 +11,103 @@
         <Setter Property="BackgroundColor" Value="{StaticResource AppBackground}" />
     </Style>
 
-    <!-- ── Shell ── -->
+    <!-- ── Shell / Nav bar ── -->
     <Style TargetType="Shell" ApplyToDerivedTypes="True">
-        <Setter Property="Shell.BackgroundColor" Value="{StaticResource SurfaceColor}" />
-        <Setter Property="Shell.ForegroundColor" Value="{StaticResource PrimaryText}" />
-        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource SurfaceColor}" />
-        <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource TabActive}" />
-        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource TabInactive}" />
-        <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource TabActive}" />
+        <Setter Property="Shell.BackgroundColor"        Value="{StaticResource SurfaceColor}" />
+        <Setter Property="Shell.ForegroundColor"        Value="{StaticResource PrimaryText}" />
+        <Setter Property="Shell.TabBarBackgroundColor"  Value="{StaticResource SurfaceColor}" />
+        <Setter Property="Shell.TabBarForegroundColor"  Value="{StaticResource TabActive}" />
+        <Setter Property="Shell.TabBarUnselectedColor"  Value="{StaticResource TabInactive}" />
+        <Setter Property="Shell.TabBarTitleColor"       Value="{StaticResource TabActive}" />
     </Style>
 
     <!-- ── Labels ── -->
     <Style x:Key="HeadingLabel" TargetType="Label">
-        <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
-        <Setter Property="FontSize" Value="24" />
+        <Setter Property="TextColor"      Value="{StaticResource PrimaryText}" />
+        <Setter Property="FontSize"       Value="24" />
         <Setter Property="FontAttributes" Value="Bold" />
     </Style>
 
     <Style x:Key="SubheadingLabel" TargetType="Label">
-        <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
-        <Setter Property="FontSize" Value="17" />
+        <Setter Property="TextColor"      Value="{StaticResource PrimaryText}" />
+        <Setter Property="FontSize"       Value="17" />
         <Setter Property="FontAttributes" Value="Bold" />
     </Style>
 
     <Style x:Key="BodyLabel" TargetType="Label">
         <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontSize"  Value="15" />
     </Style>
 
     <Style x:Key="MutedLabel" TargetType="Label">
         <Setter Property="TextColor" Value="{StaticResource SecondaryText}" />
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontSize"  Value="12" />
     </Style>
 
     <Style x:Key="CaptionLabel" TargetType="Label">
         <Setter Property="TextColor" Value="{StaticResource SecondaryText}" />
-        <Setter Property="FontSize" Value="11" />
+        <Setter Property="FontSize"  Value="11" />
     </Style>
 
-    <!-- ── Entry ── -->
+    <!-- ── Inputs ── -->
     <Style TargetType="Entry" ApplyToDerivedTypes="True">
-        <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
+        <Setter Property="TextColor"        Value="{StaticResource PrimaryText}" />
         <Setter Property="PlaceholderColor" Value="{StaticResource SecondaryText}" />
-        <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="BackgroundColor"  Value="Transparent" />
+        <Setter Property="FontSize"         Value="15" />
     </Style>
 
-    <!-- ── Editor ── -->
     <Style TargetType="Editor" ApplyToDerivedTypes="True">
-        <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
+        <Setter Property="TextColor"        Value="{StaticResource PrimaryText}" />
         <Setter Property="PlaceholderColor" Value="{StaticResource SecondaryText}" />
-        <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="BackgroundColor"  Value="Transparent" />
+        <Setter Property="FontSize"         Value="15" />
     </Style>
 
-    <!-- ── Card Border ── -->
+    <!-- ── M3 Card Border — surfaceContainer + subtle outlineVariant ── -->
     <Style x:Key="CardBorder" TargetType="Border">
-        <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource SurfaceContainer}" />
         <Setter Property="StrokeThickness" Value="1" />
-        <Setter Property="Stroke" Value="{StaticResource SurfaceBorder}" />
-        <Setter Property="StrokeShape" Value="RoundRectangle 16" />
-        <Setter Property="Padding" Value="16" />
+        <Setter Property="Stroke"          Value="{StaticResource OutlineVariant}" />
+        <Setter Property="StrokeShape"     Value="RoundRectangle 16" />
+        <Setter Property="Padding"         Value="16" />
+    </Style>
+
+    <!-- ── M3 Elevated Card (dialogs, overlays) ── -->
+    <Style x:Key="ElevatedCardBorder" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource SurfaceContainerHigh}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="Stroke"          Value="{StaticResource OutlineVariant}" />
+        <Setter Property="StrokeShape"     Value="RoundRectangle 28" />
+        <Setter Property="Padding"         Value="20" />
+    </Style>
+
+    <!-- ── M3 Filled Button ── -->
+    <Style x:Key="FilledButton" TargetType="Button">
+        <Setter Property="BackgroundColor"  Value="{StaticResource PrimaryStart}" />
+        <Setter Property="TextColor"        Value="{StaticResource OnPrimary}" />
+        <Setter Property="CornerRadius"     Value="20" />
+        <Setter Property="FontAttributes"   Value="Bold" />
+        <Setter Property="FontSize"         Value="15" />
+        <Setter Property="HeightRequest"    Value="48" />
+        <Setter Property="Padding"          Value="24,0" />
+    </Style>
+
+    <!-- ── M3 Tonal Button (secondary actions) ── -->
+    <Style x:Key="TonalButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource PrimaryContainer}" />
+        <Setter Property="TextColor"       Value="{StaticResource OnPrimaryContainer}" />
+        <Setter Property="CornerRadius"    Value="20" />
+        <Setter Property="FontSize"        Value="15" />
+        <Setter Property="HeightRequest"   Value="48" />
+        <Setter Property="Padding"         Value="24,0" />
     </Style>
 
     <!-- ── SearchBar ── -->
     <Style TargetType="SearchBar" ApplyToDerivedTypes="True">
-        <Setter Property="TextColor" Value="{StaticResource PrimaryText}" />
-        <Setter Property="PlaceholderColor" Value="{StaticResource SecondaryText}" />
-        <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+        <Setter Property="TextColor"         Value="{StaticResource PrimaryText}" />
+        <Setter Property="PlaceholderColor"  Value="{StaticResource SecondaryText}" />
+        <Setter Property="BackgroundColor"   Value="{StaticResource SurfaceColor}" />
         <Setter Property="CancelButtonColor" Value="{StaticResource SecondaryText}" />
     </Style>
 

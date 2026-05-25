@@ -38,4 +38,15 @@ comment that names the pattern and explains why it was chosen.
 
 ---
 
-> Generated for **Reflecta v1.0** — .NET 8 MAUI, Android primary target.
+---
+
+## v0.3 extensions (Journal actions · Material You · ngrok AI)
+
+| Pattern | Where extended | What changed |
+|---------|---------------|--------------|
+| **Command** (12) | `EntryCommands.cs` · `JournalViewModel` | `DeleteEntryCommand.UndoAsync` surfaced via CommunityToolkit Snackbar ("Entry deleted — Undo"); `ShowEntryMenuAsync` wraps the existing invoker in a Material bottom-sheet action flow. |
+| **Decorator** (7) | `EntryDecorator.cs` · `ReflectaFacade` | `TogglePinAsync` on the facade toggles `JournalEntry.IsPinned` (the flag read by `PinnedEntry` / `EntryDecoratorFactory.Decorate`) without re-running mood analysis; pinned entries float to the top in `GetEntriesAsync`. |
+| **Strategy** (10) | `MauiProgram.cs` | When `AppConfig.UseRemoteAi = true`, `AIWeightedStrategy` is registered (instead of `SimpleAnalysisStrategy`) and automatically routes through `HttpAiService` — no changes to the strategy classes themselves. |
+| **Facade** (6) | `ReflectaFacade.cs` | Added `TogglePinAsync`, updated `GetEntriesAsync` (pin-first sort), added `GetAiChatResponseAsync` with history — ViewModels still call only the facade. |
+
+> Generated for **Reflecta v0.3** — .NET 9 MAUI, Android primary target.

@@ -6,7 +6,7 @@
         Padding="10,4"
         StrokeThickness="0">
     <Border.StrokeShape>
-        <RoundRectangle CornerRadius="12" />
+        <RoundRectangle CornerRadius="20" />
     </Border.StrokeShape>
     <Label x:Name="ChipLabel"
            TextColor="{StaticResource ChipText}"

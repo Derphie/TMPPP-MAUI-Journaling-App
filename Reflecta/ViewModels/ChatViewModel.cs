@@ -53,7 +53,8 @@ public partial class ChatViewModel : BaseViewModel
 
         await RunSafeAsync(async () =>
         {
-            var aiText = await _facade.GetAiResponseAsync(text);
+            var recentHistory = Messages.TakeLast(10).Select(m => m.Text);
+            var aiText = await _facade.GetAiChatResponseAsync(text, recentHistory);
 
             var aiMsg = new ChatMessage { Text = aiText, IsUser = false, Timestamp = DateTime.Now };
             Messages.Add(aiMsg);
