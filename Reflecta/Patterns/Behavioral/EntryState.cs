@@ -2,12 +2,6 @@ using Reflecta.Models;
 
 namespace Reflecta.Patterns.Behavioral;
 
-// ── PATTERN 11: State ────────────────────────────────────────────────────
-// JournalEntry delegates lifecycle operations (edit, save, archive) to its
-// current IEntryState object.  Illegal transitions throw InvalidOperationException,
-// making the lifecycle self-documenting and enforced by the type system.
-
-/// <summary>State interface — each concrete state defines which actions are valid.</summary>
 public interface IEntryState
 {
     string Name { get; }
@@ -17,7 +11,6 @@ public interface IEntryState
     void Restore(JournalEntry entry);
 }
 
-/// <summary>Draft — entry has been created but not yet edited or saved.</summary>
 public class DraftState : IEntryState
 {
     public string Name => "Draft";
@@ -40,7 +33,6 @@ public class DraftState : IEntryState
         throw new InvalidOperationException("Draft has not been archived.");
 }
 
-/// <summary>Editing — entry is currently being modified.</summary>
 public class EditingState : IEntryState
 {
     public string Name => "Editing";
@@ -60,7 +52,6 @@ public class EditingState : IEntryState
         throw new InvalidOperationException("Entry is being edited.");
 }
 
-/// <summary>Saved — entry is persisted and read-only until edited again.</summary>
 public class SavedState : IEntryState
 {
     public string Name => "Saved";
@@ -82,7 +73,6 @@ public class SavedState : IEntryState
         throw new InvalidOperationException("Entry is not archived.");
 }
 
-/// <summary>Archived — entry is hidden from the main list; can be restored.</summary>
 public class ArchivedState : IEntryState
 {
     public string Name => "Archived";
@@ -102,7 +92,6 @@ public class ArchivedState : IEntryState
     }
 }
 
-/// <summary>Resolves the correct IEntryState from a JournalEntry's StateName string.</summary>
 public static class EntryStateFactory
 {
     public static IEntryState Resolve(JournalEntry entry) => entry.StateName switch

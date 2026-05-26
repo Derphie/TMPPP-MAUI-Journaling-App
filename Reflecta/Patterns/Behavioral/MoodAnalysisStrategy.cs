@@ -3,23 +3,12 @@ using Reflecta.Services;
 
 namespace Reflecta.Patterns.Behavioral;
 
-// ── PATTERN 10: Strategy ─────────────────────────────────────────────────
-// Defines a family of interchangeable mood-analysis algorithms.
-// The Summary page lets the user switch strategy at runtime.
-// SimpleAnalysisStrategy uses keyword rules (fast, offline).
-// AIWeightedStrategy delegates to IAiService (richer, async).
-
-/// <summary>Strategy interface.</summary>
 public interface IMoodAnalysisStrategy
 {
     string Name { get; }
     Task<MoodResult> AnalyzeMoodAsync(string text);
 }
 
-/// <summary>
-/// Concrete Strategy A — fast keyword/rule-based analysis.
-/// Works fully offline; suitable as the default strategy.
-/// </summary>
 public class SimpleAnalysisStrategy : IMoodAnalysisStrategy
 {
     public string Name => "Simple";
@@ -73,10 +62,6 @@ public class SimpleAnalysisStrategy : IMoodAnalysisStrategy
     }
 }
 
-/// <summary>
-/// Concrete Strategy B — richer analysis leveraging the AI service.
-/// Falls back to SimpleAnalysisStrategy if AI is unavailable.
-/// </summary>
 public class AIWeightedStrategy : IMoodAnalysisStrategy
 {
     private readonly IAiService              _ai;
@@ -104,7 +89,6 @@ public class AIWeightedStrategy : IMoodAnalysisStrategy
     }
 }
 
-// ── Helper ────────────────────────────────────────────────────────────────
 
 file class StringArrayComparer : IEqualityComparer<string[]>
 {

@@ -18,7 +18,7 @@ public partial class SummaryViewModel : BaseViewModel
 
     [ObservableProperty] private string _insightText   = "Loading your weekly insight...";
     [ObservableProperty] private Chart? _moodChart;
-    [ObservableProperty] private int    _periodIndex   = 1; // 0=Daily, 1=Weekly, 2=Monthly
+    [ObservableProperty] private int    _periodIndex   = 1;
 
     public ObservableCollection<ThemeItem> ThemeItems { get; } = new();
 

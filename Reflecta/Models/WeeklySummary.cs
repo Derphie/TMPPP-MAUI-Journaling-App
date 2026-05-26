@@ -3,7 +3,7 @@ namespace Reflecta.Models;
 public class DayMoodPoint
 {
     public string Day { get; set; } = string.Empty;
-    public float Score { get; set; } // 0–10
+    public float Score { get; set; } 
     public MoodLabel Label { get; set; }
 }
 

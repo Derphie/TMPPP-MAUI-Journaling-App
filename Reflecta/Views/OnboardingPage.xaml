@@ -11,7 +11,7 @@
     <ScrollView>
         <VerticalStackLayout Padding="32,60,32,40" Spacing="32" VerticalOptions="Center">
 
-            <!-- App icon / glow -->
+            
             <Border HorizontalOptions="Center"
                     WidthRequest="110" HeightRequest="110"
                     StrokeThickness="0">
@@ -28,7 +28,7 @@
                        HorizontalOptions="Center" VerticalOptions="Center" />
             </Border>
 
-            <!-- Heading -->
+            
             <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
                 <Label Text="Welcome to Reflecta"
                        Style="{StaticResource HeadingLabel}"
@@ -40,10 +40,10 @@
                        HorizontalTextAlignment="Center" />
             </VerticalStackLayout>
 
-            <!-- Feature rows -->
+            
             <Border Style="{StaticResource CardBorder}">
                 <VerticalStackLayout Spacing="20">
-                    <!-- Feature 1 -->
+                    
                     <HorizontalStackLayout Spacing="16">
                         <Border WidthRequest="44" HeightRequest="44"
                                 BackgroundColor="{StaticResource ChipBackground}"
@@ -58,10 +58,10 @@
                         </VerticalStackLayout>
                     </HorizontalStackLayout>
 
-                    <!-- Separator -->
+                   
                     <BoxView HeightRequest="1" BackgroundColor="{StaticResource SurfaceBorder}" />
 
-                    <!-- Feature 2 -->
+                    
                     <HorizontalStackLayout Spacing="16">
                         <Border WidthRequest="44" HeightRequest="44"
                                 BackgroundColor="{StaticResource ChipBackground}"
@@ -76,10 +76,10 @@
                         </VerticalStackLayout>
                     </HorizontalStackLayout>
 
-                    <!-- Separator -->
+                    
                     <BoxView HeightRequest="1" BackgroundColor="{StaticResource SurfaceBorder}" />
 
-                    <!-- Feature 3 -->
+                    
                     <HorizontalStackLayout Spacing="16">
                         <Border WidthRequest="44" HeightRequest="44"
                                 BackgroundColor="{StaticResource ChipBackground}"
@@ -96,12 +96,12 @@
                 </VerticalStackLayout>
             </Border>
 
-            <!-- CTA Button -->
+            
             <controls:PrimaryButton Text="Get Started ✦"
                                     Command="{Binding GetStartedCommand}"
                                     Margin="0,8" />
 
-            <!-- Footer -->
+            
             <Label Text="🔒 Your thoughts are private and secure."
                    Style="{StaticResource MutedLabel}"
                    HorizontalOptions="Center"

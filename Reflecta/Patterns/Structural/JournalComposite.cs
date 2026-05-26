@@ -1,11 +1,5 @@
 namespace Reflecta.Patterns.Structural;
 
-// ── PATTERN 8: Composite ─────────────────────────────────────────────────
-// Represents the journal as a tree: Folders contain Notes and other Folders.
-// Clients traverse the hierarchy uniformly via IJournalComponent, supporting
-// recursive operations like counting entries or flattening for export.
-
-/// <summary>Component — uniform interface for leaves and composites.</summary>
 public interface IJournalComponent
 {
     string GetTitle();
@@ -17,7 +11,6 @@ public interface IJournalComponent
     string GetTreeDisplay(int depth = 0);
 }
 
-/// <summary>Leaf — a single journal note (wraps an entry ID and title).</summary>
 public class JournalNote : IJournalComponent
 {
     private readonly int    _entryId;
@@ -39,7 +32,6 @@ public class JournalNote : IJournalComponent
         new string(' ', depth * 2) + $"📄 {_title} [id={_entryId}]";
 }
 
-/// <summary>Composite — a folder that holds other components recursively.</summary>
 public class JournalFolder : IJournalComponent
 {
     private readonly List<IJournalComponent> _children = new();
@@ -65,7 +57,6 @@ public class JournalFolder : IJournalComponent
     }
 }
 
-/// <summary>Specialised composite for grouping entries by mood label.</summary>
 public class MoodCollection : JournalFolder
 {
     public string MoodName { get; }

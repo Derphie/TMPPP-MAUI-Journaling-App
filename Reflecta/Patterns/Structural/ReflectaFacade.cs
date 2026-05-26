@@ -5,14 +5,6 @@ using Reflecta.Services;
 
 namespace Reflecta.Patterns.Structural;
 
-// ── PATTERN 6: Facade ─────────────────────────────────────────────────────
-// Provides a single, simplified entry point to the subsystem: repositories,
-// notifications, analytics, and export.  ViewModels call only the facade,
-// keeping them ignorant of the underlying complexity.
-
-/// <summary>
-/// Facade — simplifies the UI layer's access to all backend subsystems.
-/// </summary>
 public class ReflectaFacade
 {
     private readonly IJournalRepository  _journal;
@@ -40,8 +32,7 @@ public class ReflectaFacade
         _moodSubject   = moodSubject;
         _strategy      = strategy;
     }
-
-    /// <summary>Saves an entry and notifies mood observers.</summary>
+    
     public async Task<int> SaveEntryAsync(JournalEntry entry)
     {
         var moodResult = await _strategy.AnalyzeMoodAsync(entry.Body);
@@ -60,36 +51,28 @@ public class ReflectaFacade
 
         return id;
     }
-
-    /// <summary>Deletes an entry by id.</summary>
+    
     public Task DeleteEntryAsync(int id) => _journal.DeleteAsync(id);
-
-    /// <summary>
-    /// Toggles the pinned flag using the Decorator pattern's IsPinned signal without
-    /// re-running mood analysis (avoids unnecessary AI/strategy overhead).
-    /// </summary>
+    
     public async Task TogglePinAsync(JournalEntry entry)
     {
         entry.IsPinned  = !entry.IsPinned;
         entry.UpdatedAt = DateTime.Now;
         await _journal.SaveAsync(entry);
     }
-
-    /// <summary>Returns all entries: pinned first, then newest.</summary>
+    
     public async Task<List<JournalEntry>> GetEntriesAsync()
     {
         var all = await _journal.GetAllAsync();
         return [.. all.OrderByDescending(e => e.IsPinned).ThenByDescending(e => e.CreatedAt)];
     }
-
-    /// <summary>Generates a weekly summary using the current mood strategy.</summary>
+    
     public async Task<WeeklySummary> GetWeeklySummaryAsync()
     {
         var entries = await _journal.GetRecentAsync(7);
         return await BuildSummaryAsync(entries);
     }
-
-    /// <summary>Generates a daily summary.</summary>
+    
     public async Task<WeeklySummary> GetDailySummaryAsync()
     {
         var today   = DateTime.Today;
@@ -98,22 +81,18 @@ public class ReflectaFacade
             .ToList();
         return await BuildSummaryAsync(entries);
     }
-
-    /// <summary>Exports journal entries to a plain-text string.</summary>
+    
     public Task<string> ExportJournalAsync() => _export.ExportToTextAsync();
-
-    /// <summary>Schedules a local notification reminder.</summary>
+    
     public Task ScheduleReminderAsync(string title, string body, DateTime at) =>
         _notifications.ScheduleAsync(title, body, at);
 
     public Task<string> GetAiResponseAsync(string text) =>
         _ai.GetReflectionAsync(text);
-
-    /// <summary>Chat response with optional conversation history for context-aware replies.</summary>
+    
     public Task<string> GetAiChatResponseAsync(string text, IEnumerable<string> history) =>
         _ai.GetChatResponseAsync(text, history);
-
-    // ── Private helpers ──────────────────────────────────────────────────
+    
 
     private async Task<WeeklySummary> BuildSummaryAsync(List<JournalEntry> entries)
     {

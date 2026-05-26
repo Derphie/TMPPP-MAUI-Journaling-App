@@ -4,7 +4,6 @@ using Reflecta.Repositories;
 
 namespace Reflecta.Services;
 
-/// <summary>Seeds mock data so all screens are populated on first launch.</summary>
 public class SeedDataService
 {
     private readonly IJournalRepository _journal;
@@ -19,7 +18,7 @@ public class SeedDataService
     public async Task SeedAsync()
     {
         var existingEntries = await _journal.GetAllAsync();
-        if (existingEntries.Count > 0) return; // already seeded
+        if (existingEntries.Count > 0) return; 
 
         var now = DateTime.Now;
 
@@ -97,8 +96,7 @@ public class SeedDataService
 
         foreach (var e in entries)
             await _journal.SaveAsync(e);
-
-        // Seed chat messages
+        
         var messages = new[]
         {
             new ChatMessage { Text = "Hey Reflecta, I've been so stressed about finals lately.", IsUser = true,

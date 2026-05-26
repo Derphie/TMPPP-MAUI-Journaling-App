@@ -6,14 +6,12 @@ public interface INotificationService
     Task CancelAllAsync();
 }
 
-// ── Concrete implementations (created via Abstract Factory) ────────────────
+
 
 public class AndroidNotificationService : INotificationService
 {
     public Task ScheduleAsync(string title, string body, DateTime at)
     {
-        // In production: use Plugin.LocalNotification or AlarmManager.
-        // For the demo, we log intent and return.
         System.Diagnostics.Debug.WriteLine(
             $"[Android] Scheduling notification '{title}' at {at:HH:mm}");
         return Task.CompletedTask;

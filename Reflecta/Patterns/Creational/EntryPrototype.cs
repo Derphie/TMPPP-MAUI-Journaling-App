@@ -2,13 +2,6 @@ using Reflecta.Models;
 
 namespace Reflecta.Patterns.Creational;
 
-// ── PATTERN 4: Prototype ─────────────────────────────────────────────────
-// Allows cloning pre-configured entry templates without going through the
-// factory chain.  The user picks a template (e.g. "Daily Reflection") and
-// the app deep-copies it, yielding a ready-to-edit entry with prefilled
-// structure and tags.
-
-/// <summary>Prototype interface — all templates implement this.</summary>
 public interface IEntryPrototype
 {
     string TemplateName { get; }
@@ -16,7 +9,6 @@ public interface IEntryPrototype
     JournalEntry Clone();
 }
 
-/// <summary>Daily reflection template — pre-fills prompts and tags.</summary>
 public class DailyReflectionTemplate : IEntryPrototype
 {
     public string TemplateName => "Daily Reflection";
@@ -33,7 +25,6 @@ public class DailyReflectionTemplate : IEntryPrototype
         .Build();
 }
 
-/// <summary>Gratitude journal template — pure positive focus.</summary>
 public class GratitudeTemplate : IEntryPrototype
 {
     public string TemplateName => "Gratitude Journal";
@@ -49,7 +40,6 @@ public class GratitudeTemplate : IEntryPrototype
         .Build();
 }
 
-/// <summary>Stress check-in template for difficult days.</summary>
 public class StressCheckInTemplate : IEntryPrototype
 {
     public string TemplateName => "Stress Check-In";
@@ -67,7 +57,6 @@ public class StressCheckInTemplate : IEntryPrototype
         .Build();
 }
 
-/// <summary>Weekly goals template for Sunday planning.</summary>
 public class WeeklyGoalsTemplate : IEntryPrototype
 {
     public string TemplateName => "Weekly Goals";
@@ -83,7 +72,6 @@ public class WeeklyGoalsTemplate : IEntryPrototype
         .Build();
 }
 
-/// <summary>In-memory registry of all available templates.</summary>
 public class TemplateRegistry
 {
     private static readonly List<IEntryPrototype> _templates = new()

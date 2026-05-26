@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Reflecta.Views.Controls.MessageBubble">
     <Grid Margin="0,4">
-        <!-- AI bubble (left) -->
+       
         <Grid x:Name="AiBubbleContainer"
               HorizontalOptions="Start"
               MaximumWidthRequest="300"
@@ -28,7 +28,7 @@
             </Border>
         </Grid>
 
-        <!-- User bubble (right) -->
+        
         <Grid x:Name="UserBubbleContainer"
               HorizontalOptions="End"
               MaximumWidthRequest="300"

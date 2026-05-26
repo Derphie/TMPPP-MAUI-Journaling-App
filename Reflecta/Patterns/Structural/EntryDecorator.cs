@@ -2,12 +2,6 @@ using Reflecta.Models;
 
 namespace Reflecta.Patterns.Structural;
 
-// ── PATTERN 7: Decorator ─────────────────────────────────────────────────
-// Dynamically adds behaviour to an entry without modifying its class.
-// Decorators are stackable: entry → PinnedEntry → FavoriteEntry.
-// The Journal list reads decorated state to render pin, star, and lock icons.
-
-/// <summary>Component interface that both JournalEntry wrappers and decorators honour.</summary>
 public interface IEntry
 {
     int      Id              { get; }
@@ -22,7 +16,6 @@ public interface IEntry
     List<string> GetTagList();
 }
 
-/// <summary>Adapts JournalEntry to IEntry so it can be wrapped by decorators.</summary>
 public class EntryComponentAdapter : IEntry
 {
     private readonly JournalEntry _entry;
@@ -41,7 +34,6 @@ public class EntryComponentAdapter : IEntry
     public List<string> GetTagList()      => _entry.GetTagList();
 }
 
-/// <summary>Abstract decorator — wraps an IEntry and delegates all calls.</summary>
 public abstract class EntryDecorator : IEntry
 {
     protected readonly IEntry _inner;
@@ -60,7 +52,6 @@ public abstract class EntryDecorator : IEntry
     public virtual List<string> GetTagList()      => _inner.GetTagList();
 }
 
-/// <summary>Adds a 📌 prefix to the display title and marks IsPinned = true.</summary>
 public class PinnedEntry : EntryDecorator
 {
     public PinnedEntry(IEntry inner) : base(inner) { }
@@ -68,7 +59,6 @@ public class PinnedEntry : EntryDecorator
     public override string GetDisplayTitle() => "📌 " + _inner.GetDisplayTitle();
 }
 
-/// <summary>Adds a ⭐ prefix and marks IsFavorite = true.</summary>
 public class FavoriteEntry : EntryDecorator
 {
     public FavoriteEntry(IEntry inner) : base(inner) { }
@@ -76,7 +66,6 @@ public class FavoriteEntry : EntryDecorator
     public override string GetDisplayTitle() => "⭐ " + _inner.GetDisplayTitle();
 }
 
-/// <summary>Hides body text behind a lock indicator; marks IsEncrypted = true.</summary>
 public class EncryptedEntry : EntryDecorator
 {
     public EncryptedEntry(IEntry inner) : base(inner) { }
@@ -84,9 +73,6 @@ public class EncryptedEntry : EntryDecorator
     public override string GetDisplayBody() => "🔒 Content is encrypted";
 }
 
-/// <summary>
-/// Helper: wraps a JournalEntry with the appropriate decorators based on its flags.
-/// </summary>
 public static class EntryDecoratorFactory
 {
     public static IEntry Decorate(JournalEntry entry)

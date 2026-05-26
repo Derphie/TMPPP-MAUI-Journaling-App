@@ -6,25 +6,17 @@ import requests
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-# Load .env file if present (python-dotenv), before anything reads os.environ
 try:
     from dotenv import load_dotenv
     load_dotenv()
 except ImportError:
-    pass  # dotenv not installed; rely on shell environment
-
-# ---------------------------------------------------------------------------
-# Logging
-# ---------------------------------------------------------------------------
+    pass 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
 )
 log = logging.getLogger(__name__)
 
-# ---------------------------------------------------------------------------
-# Startup key check
-# ---------------------------------------------------------------------------
 _api_key = os.environ.get("GEMINI_API_KEY", "")
 if _api_key:
     log.info("GEMINI_API_KEY loaded (length=%d)", len(_api_key))
@@ -35,9 +27,6 @@ else:
         "All AI calls will return an error response."
     )
 
-# ---------------------------------------------------------------------------
-# Constants
-# ---------------------------------------------------------------------------
 app = Flask(__name__)
 CORS(app)
 
@@ -58,9 +47,6 @@ SYSTEM_PROMPT = (
 
 VALID_MOODS = {"happy", "calm", "neutral", "stressed", "sad"}
 
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
 
 def detect_mood_from_text(text: str) -> str:
     t = text.lower()
@@ -97,7 +83,7 @@ def build_contents(history: list, user_message: str) -> list:
     The array must start with a user turn and alternate strictly.
     """
     contents = []
-    # history is a flat list: [user_msg, model_msg, user_msg, ...]
+   
     for i, text in enumerate(history):
         role = "user" if i % 2 == 0 else "model"
         contents.append({"role": role, "parts": [{"text": text}]})
@@ -161,9 +147,6 @@ def call_gemini(history: list, user_message: str) -> dict:
         return {"reply": "I'm here for you. Tell me more about what's on your mind.", "mood": "neutral"}
 
 
-# ---------------------------------------------------------------------------
-# Routes
-# ---------------------------------------------------------------------------
 
 @app.route("/health", methods=["GET"])
 def health():

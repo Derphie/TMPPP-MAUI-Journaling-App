@@ -3,15 +3,6 @@ using System.Text.Json.Serialization;
 
 namespace Reflecta.Services;
 
-// ── Strategy pattern extension ────────────────────────────────────────────
-// HttpAiService is the remote concrete implementation of IAiService.
-// It is injected into AIWeightedStrategy (Pattern 10) and the Facade (Pattern 6)
-// when AppConfig.UseRemoteAi is true, replacing MockAiService transparently.
-
-/// <summary>
-/// Calls the ngrok-exposed AI endpoint; falls back to MockAiService on any failure or timeout
-/// so the app never breaks during demos when the tunnel is down.
-/// </summary>
 public class HttpAiService : IAiService
 {
     private readonly HttpClient    _http;

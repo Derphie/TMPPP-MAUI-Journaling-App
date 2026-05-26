@@ -2,12 +2,6 @@ using Reflecta.Models;
 
 namespace Reflecta.Patterns.Structural;
 
-// ── PATTERN 5: Adapter ────────────────────────────────────────────────────
-// ExternalMoodApiClient uses a DTO structure incompatible with the internal
-// IMoodAnalyzer contract.  MoodAnalyticsAdapter translates between the two,
-// isolating the rest of the app from the external API's format.
-
-// ── Incompatible external API (simulated) ──────────────────────────────────
 
 public class ExternalMoodApiResponse
 {
@@ -62,19 +56,12 @@ public class ExternalMoodApiClient
     }
 }
 
-// ── Internal target interface ──────────────────────────────────────────────
 
 public interface IMoodAnalyzer
 {
     Task<MoodResult> AnalyzeAsync(string text);
 }
 
-// ── Adapter ────────────────────────────────────────────────────────────────
-
-/// <summary>
-/// Adapts ExternalMoodApiClient to IMoodAnalyzer.
-/// Translates DTO fields to the internal MoodResult model.
-/// </summary>
 public class MoodAnalyticsAdapter : IMoodAnalyzer
 {
     private readonly ExternalMoodApiClient _external;

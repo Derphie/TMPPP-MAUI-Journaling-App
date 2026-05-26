@@ -1,9 +1,5 @@
 namespace Reflecta.Services;
 
-/// <summary>
-/// Offline mock AI — keyword matching produces realistic empathetic responses.
-/// Wire to a real HTTP endpoint by implementing IAiService and swapping DI registration.
-/// </summary>
 public class MockAiService : IAiService
 {
     private static readonly (string[] keys, string response)[] _rules =
@@ -87,7 +83,7 @@ public class MockAiService : IAiService
 
     public async Task<string> GetChatResponseAsync(string userMessage, IEnumerable<string> history)
     {
-        await Task.Delay(400); // simulate network latency for realism
+        await Task.Delay(400); 
         return await GetReflectionAsync(userMessage);
     }
 }

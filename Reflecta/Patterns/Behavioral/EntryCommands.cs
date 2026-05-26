@@ -3,12 +3,6 @@ using Reflecta.Patterns.Structural;
 
 namespace Reflecta.Patterns.Behavioral;
 
-// ── PATTERN 12: Command ───────────────────────────────────────────────────
-// Encapsulates each user action as an object, decoupling the invoker (UI)
-// from the receiver (Facade).  DeleteEntryCommand stores the deleted entry
-// so it can be restored (Undo support).
-
-/// <summary>Command interface.</summary>
 public interface IEntryCommand
 {
     Task ExecuteAsync();
@@ -16,7 +10,6 @@ public interface IEntryCommand
     Task UndoAsync();
 }
 
-/// <summary>Save an entry via the facade.</summary>
 public class SaveEntryCommand : IEntryCommand
 {
     private readonly ReflectaFacade _facade;
@@ -41,7 +34,6 @@ public class SaveEntryCommand : IEntryCommand
     public Task UndoAsync() => _facade.DeleteEntryAsync(_savedId);
 }
 
-/// <summary>Delete an entry and support undo by re-saving.</summary>
 public class DeleteEntryCommand : IEntryCommand
 {
     private readonly ReflectaFacade _facade;
@@ -65,13 +57,12 @@ public class DeleteEntryCommand : IEntryCommand
     public async Task UndoAsync()
     {
         if (!_executed) return;
-        _deletedEntry.Id = 0; // reset so SQLite inserts rather than updates
+        _deletedEntry.Id = 0; 
         await _facade.SaveEntryAsync(_deletedEntry);
         _executed = false;
     }
 }
 
-/// <summary>Export the full journal and return the exported text.</summary>
 public class ExportCommand : IEntryCommand
 {
     private readonly ReflectaFacade _facade;
@@ -86,12 +77,9 @@ public class ExportCommand : IEntryCommand
         ExportedText = await _facade.ExportJournalAsync();
     }
 
-    public Task UndoAsync() => Task.CompletedTask; // export is read-only
+    public Task UndoAsync() => Task.CompletedTask;
 }
 
-/// <summary>
-/// Invoker — queues and executes commands, keeping an undo stack.
-/// </summary>
 public class CommandInvoker
 {
     private readonly Stack<IEntryCommand> _undoStack = new();

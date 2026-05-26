@@ -5,7 +5,6 @@ public interface IShareService
     Task ShareTextAsync(string title, string text);
 }
 
-// ── Concrete implementations (created via Abstract Factory) ────────────────
 
 public class AndroidShareService : IShareService
 {

@@ -1,9 +1,5 @@
 namespace Reflecta.Models;
 
-/// <summary>
-/// Concrete product of TaskEntryFactory (Factory Method pattern).
-/// Tracks tasks or goals alongside reflective notes.
-/// </summary>
 public class TaskEntry : JournalEntry
 {
     public bool IsCompleted { get; set; }

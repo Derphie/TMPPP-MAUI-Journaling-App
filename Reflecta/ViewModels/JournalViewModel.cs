@@ -30,7 +30,7 @@ public partial class JournalViewModel : BaseViewModel
     [ObservableProperty] private string        _newTitle  = string.Empty;
     [ObservableProperty] private string        _newBody   = string.Empty;
     [ObservableProperty] private string        _newTags   = string.Empty;
-    [ObservableProperty] private int           _newTypeIndex; // 0=Text,1=Mood,2=Task,3=Voice
+    [ObservableProperty] private int           _newTypeIndex; 
     [ObservableProperty] private bool          _showEditor;
 
     public JournalViewModel(ReflectaFacade facade)
@@ -53,8 +53,7 @@ public partial class JournalViewModel : BaseViewModel
             foreach (var e in entries) Entries.Add(e);
         });
     }
-
-    // ── Search ──────────────────────────────────────────────────────────
+    
 
     partial void OnSearchQueryChanged(string value) =>
         _ = SearchAsync(value);
@@ -77,8 +76,7 @@ public partial class JournalViewModel : BaseViewModel
             foreach (var e in filtered) Entries.Add(e);
         });
     }
-
-    // ── New entry ────────────────────────────────────────────────────────
+    
 
     [RelayCommand]
     private void OpenNewEntry()
@@ -146,11 +144,7 @@ public partial class JournalViewModel : BaseViewModel
             await InitializeAsync();
         }
     }
-
-    /// <summary>
-    /// Opens a Material bottom-sheet action menu for the given entry.
-    /// Uses Command pattern (DeleteEntryCommand) and Decorator pattern (TogglePinAsync).
-    /// </summary>
+    
     [RelayCommand]
     private async Task ShowEntryMenuAsync(JournalEntry entry)
     {

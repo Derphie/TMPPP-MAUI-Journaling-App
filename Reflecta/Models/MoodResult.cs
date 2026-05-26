@@ -1,6 +1,5 @@
 namespace Reflecta.Models;
 
-/// <summary>Internal mood-analysis result used by Adapter and Strategy patterns.</summary>
 public class MoodResult
 {
     public MoodLabel Label { get; set; }

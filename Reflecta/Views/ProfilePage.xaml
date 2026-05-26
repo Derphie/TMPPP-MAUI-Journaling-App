@@ -11,10 +11,10 @@
     <ScrollView>
         <VerticalStackLayout Padding="16" Spacing="16">
 
-            <!-- ── Header ── -->
+            
             <Label Text="Profile" Style="{StaticResource HeadingLabel}" Margin="0,8,0,0"/>
 
-            <!-- ── Avatar + Name ── -->
+            
             <Border Style="{StaticResource CardBorder}">
                 <HorizontalStackLayout Spacing="16">
                     <Border WidthRequest="64" HeightRequest="64"
@@ -33,7 +33,7 @@
                 </HorizontalStackLayout>
             </Border>
 
-            <!-- ── Stats ── -->
+            
             <Border Style="{StaticResource CardBorder}">
                 <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" RowSpacing="4">
                     <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="4">
@@ -55,7 +55,7 @@
                 </Grid>
             </Border>
 
-            <!-- ── Reminder ── -->
+           
             <Border Style="{StaticResource CardBorder}">
                 <VerticalStackLayout Spacing="14">
                     <Label Text="Daily Reminder" Style="{StaticResource SubheadingLabel}" />
@@ -79,7 +79,7 @@
                 </VerticalStackLayout>
             </Border>
 
-            <!-- ── Mood analysis strategy ── -->
+            
             <Border Style="{StaticResource CardBorder}">
                 <VerticalStackLayout Spacing="12">
                     <Label Text="Analysis Strategy" Style="{StaticResource SubheadingLabel}" />
@@ -95,7 +95,7 @@
                 </VerticalStackLayout>
             </Border>
 
-            <!-- ── Export ── -->
+            
             <Border Style="{StaticResource CardBorder}">
                 <VerticalStackLayout Spacing="12">
                     <Label Text="Export Journal" Style="{StaticResource SubheadingLabel}" />
@@ -106,7 +106,7 @@
                 </VerticalStackLayout>
             </Border>
 
-            <!-- ── About ── -->
+            
             <Border Style="{StaticResource CardBorder}">
                 <VerticalStackLayout Spacing="6">
                     <Label Text="Reflecta v1.0" Style="{StaticResource SubheadingLabel}" />

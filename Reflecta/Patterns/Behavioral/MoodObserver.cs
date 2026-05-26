@@ -2,12 +2,6 @@ using Reflecta.Models;
 
 namespace Reflecta.Patterns.Behavioral;
 
-// ── PATTERN 9: Observer ──────────────────────────────────────────────────
-// Explicit Subject/Observer implementation (separate from MVVM's
-// INotifyPropertyChanged).  MoodSubject broadcasts mood updates to all
-// registered observers whenever an entry is saved.  SummaryChartObserver
-// updates the chart data; MoodAlertObserver can trigger a nudge notification.
-
 public class MoodUpdate
 {
     public int          EntryId   { get; set; }
@@ -21,7 +15,6 @@ public interface IMoodObserver
     void OnMoodUpdate(MoodUpdate update);
 }
 
-/// <summary>Subject — maintains a list of observers and notifies them.</summary>
 public class MoodSubject
 {
     private readonly List<IMoodObserver> _observers = new();
@@ -46,7 +39,6 @@ public class MoodSubject
     public MoodUpdate? GetLastUpdate() => _lastUpdate;
 }
 
-/// <summary>Concrete observer — updates the in-memory chart data set.</summary>
 public class SummaryChartObserver : IMoodObserver
 {
     private readonly List<MoodUpdate> _history = new();
@@ -61,7 +53,6 @@ public class SummaryChartObserver : IMoodObserver
     }
 }
 
-/// <summary>Concrete observer — fires a local alert when mood is consistently low.</summary>
 public class MoodAlertObserver : IMoodObserver
 {
     private readonly Queue<MoodLabel> _recentMoods = new(5);

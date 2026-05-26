@@ -2,15 +2,7 @@ using Reflecta.Models;
 
 namespace Reflecta.Patterns.Creational;
 
-// ── PATTERN 2: Builder ────────────────────────────────────────────────────
-// Separates the construction of a complex JournalEntry object from its
-// representation. The fluent interface lets the "new entry" flow and
-// Prototype templates compose entries step-by-step.
 
-/// <summary>
-/// Fluent builder for JournalEntry. Ensures all optional fields are set in a
-/// controlled order before Build() produces the final object.
-/// </summary>
 public class JournalEntryBuilder
 {
     private readonly JournalEntry _entry;
@@ -64,7 +56,6 @@ public class JournalEntryBuilder
 
     public JournalEntryBuilder WithReminder(DateTime? reminderAt = null)
     {
-        // stored via notification service after save
         return this;
     }
 

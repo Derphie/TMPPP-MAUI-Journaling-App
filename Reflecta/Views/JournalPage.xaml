@@ -11,7 +11,7 @@
 
     <Grid RowDefinitions="Auto,Auto,*">
 
-        <!-- ── Header ── -->
+        
         <Grid Grid.Row="0" Padding="16,16,16,8" ColumnDefinitions="*,Auto">
             <Label Grid.Column="0" Text="Journal"
                    Style="{StaticResource HeadingLabel}" VerticalOptions="Center"/>
@@ -31,7 +31,7 @@
             </Border>
         </Grid>
 
-        <!-- ── Search ── -->
+        
         <Border Grid.Row="1" Margin="16,0,16,8"
                 BackgroundColor="{StaticResource SurfaceContainer}"
                 StrokeThickness="1" Stroke="{StaticResource OutlineVariant}"
@@ -42,12 +42,12 @@
                        BackgroundColor="Transparent" />
         </Border>
 
-        <!-- ── Entry list ── -->
+        
         <CollectionView Grid.Row="2" ItemsSource="{Binding Entries}"
                         Margin="16,0" SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:JournalEntry">
-                    <!-- M3 card: surfaceContainer background, outlineVariant border, 16dp radius -->
+                    
                     <Border BackgroundColor="{StaticResource SurfaceContainer}"
                             StrokeThickness="1" Stroke="{StaticResource OutlineVariant}"
                             Padding="16" Margin="0,0,0,10">
@@ -59,7 +59,7 @@
                         </Border.GestureRecognizers>
 
                         <VerticalStackLayout Spacing="10">
-                            <!-- Mood emoji + title + state badges + ⋮ menu -->
+                            
                             <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
                                 <Label Grid.Column="0"
                                        Text="{Binding MoodEmoji}" FontSize="24"
@@ -73,7 +73,7 @@
                                     <Label Text="📌" FontSize="14" IsVisible="{Binding IsPinned}" />
                                     <Label Text="⭐" FontSize="14" IsVisible="{Binding IsFavorite}" />
                                     <Label Text="🔒" FontSize="14" IsVisible="{Binding IsEncrypted}" />
-                                    <!-- M3 overflow menu trigger -->
+                                    
                                     <Label Text="⋮" FontSize="20"
                                            TextColor="{StaticResource SecondaryText}"
                                            VerticalOptions="Center"
@@ -87,7 +87,7 @@
                                 </HorizontalStackLayout>
                             </Grid>
 
-                            <!-- Date + body preview -->
+                            
                             <VerticalStackLayout Spacing="3">
                                 <Label Text="{Binding CreatedAt, StringFormat='{0:ddd, MMM d · HH:mm}'}"
                                        Style="{StaticResource CaptionLabel}" />
@@ -97,7 +97,7 @@
                                        LineBreakMode="TailTruncation" />
                             </VerticalStackLayout>
 
-                            <!-- Tags — fully-rounded M3 chips -->
+                            
                             <FlexLayout Direction="Row" Wrap="Wrap" JustifyContent="Start"
                                         BindableLayout.ItemsSource="{Binding TagList}">
                                 <BindableLayout.ItemTemplate>
@@ -126,7 +126,7 @@
             </CollectionView.EmptyView>
         </CollectionView>
 
-        <!-- ── Editor overlay — M3 bottom-sheet style (28dp top corners) ── -->
+        
         <Grid Grid.RowSpan="3" BackgroundColor="#CC000000"
               IsVisible="{Binding ShowEditor}">
             <Border Margin="0,60,0,0"
@@ -137,7 +137,7 @@
                     <RoundRectangle CornerRadius="28,28,0,0"/>
                 </Border.StrokeShape>
                 <VerticalStackLayout Spacing="14">
-                    <!-- Drag handle pill -->
+                    
                     <BoxView WidthRequest="32" HeightRequest="4"
                              BackgroundColor="{StaticResource SecondaryText}"
                              CornerRadius="2"
@@ -193,7 +193,7 @@
                     </Border>
 
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
-                        <!-- M3 tonal button for secondary action -->
+                        
                         <Button Grid.Column="0" Text="Cancel"
                                 BackgroundColor="{StaticResource UserBubble}"
                                 TextColor="{StaticResource SecondaryText}"

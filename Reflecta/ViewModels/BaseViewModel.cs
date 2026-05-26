@@ -2,9 +2,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Reflecta.ViewModels;
 
-// ── PATTERN 9 (MVVM side): Observer via INotifyPropertyChanged ────────────
-// BaseViewModel : ObservableObject automatically implements INotifyPropertyChanged
-// so any [ObservableProperty] field notifies the XAML binding engine.
 
 public partial class BaseViewModel : ObservableObject
 {

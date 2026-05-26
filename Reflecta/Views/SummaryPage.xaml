@@ -13,7 +13,7 @@
     <ScrollView>
         <VerticalStackLayout Padding="16" Spacing="16">
 
-            <!-- ── Header ── -->
+            
             <Grid ColumnDefinitions="*,Auto" Margin="0,8,0,0">
                 <Label Grid.Column="0" Text="Summary"
                        Style="{StaticResource HeadingLabel}" VerticalOptions="Center"/>
@@ -29,7 +29,7 @@
                 </Border>
             </Grid>
 
-            <!-- ── Period segmented toggle ── -->
+           
             <Border BackgroundColor="{StaticResource SurfaceColor}"
                     StrokeThickness="1" Stroke="{StaticResource SurfaceBorder}"
                     Padding="4">
@@ -63,7 +63,7 @@
                 </Grid>
             </Border>
 
-            <!-- ── AI Insight card ── -->
+            
             <Border StrokeThickness="1" Stroke="{StaticResource PrimaryStart}" Padding="0">
                 <Border.StrokeShape><RoundRectangle CornerRadius="16"/></Border.StrokeShape>
                 <Border.Background>
@@ -84,7 +84,7 @@
                 </VerticalStackLayout>
             </Border>
 
-            <!-- ── Mood Trends chart card ── -->
+            
             <Border BackgroundColor="{StaticResource SurfaceColor}"
                     StrokeThickness="1" Stroke="{StaticResource SurfaceBorder}"
                     Padding="16">
@@ -97,7 +97,7 @@
                 </VerticalStackLayout>
             </Border>
 
-            <!-- ── Key Themes card ── -->
+            
             <Border BackgroundColor="{StaticResource SurfaceColor}"
                     StrokeThickness="1" Stroke="{StaticResource SurfaceBorder}"
                     Padding="16">

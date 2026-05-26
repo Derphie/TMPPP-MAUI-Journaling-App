@@ -19,7 +19,7 @@ public partial class ProfileViewModel : BaseViewModel
     [ObservableProperty] private string _avatarEmoji  = "🌟";
     [ObservableProperty] private bool   _notificationsEnabled = true;
     [ObservableProperty] private string _reminderTime = "21:00";
-    [ObservableProperty] private int    _strategyIndex = 0; // 0=Simple, 1=AIWeighted
+    [ObservableProperty] private int    _strategyIndex = 0; 
     [ObservableProperty] private int    _totalEntries;
     [ObservableProperty] private int    _currentStreak;
     [ObservableProperty] private string _memberSince = string.Empty;
@@ -44,8 +44,7 @@ public partial class ProfileViewModel : BaseViewModel
             MemberSince  = entries.Count > 0
                 ? entries.Min(e => e.CreatedAt).ToString("MMMM yyyy")
                 : DateTime.Now.ToString("MMMM yyyy");
-
-            // Calculate streak: consecutive days with at least one entry
+            
             var dates = entries.Select(e => e.CreatedAt.Date).Distinct().OrderByDescending(d => d).ToList();
             int streak = 0;
             var check  = DateTime.Today;

@@ -2,48 +2,48 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <!-- ── M3 Background / Scrim ─────────────────────────────────────── -->
+    
     <Color x:Key="AppBackground">#0A0A0F</Color>
 
-    <!-- ── M3 Surface family ─────────────────────────────────────────── -->
-    <Color x:Key="SurfaceColor">#1A1825</Color>          <!-- surface -->
-    <Color x:Key="SurfaceVariant">#221F32</Color>        <!-- surfaceVariant -->
-    <Color x:Key="SurfaceContainer">#1F1C2C</Color>      <!-- surfaceContainer — cards (elevation +1 tonal) -->
-    <Color x:Key="SurfaceContainerHigh">#252236</Color>  <!-- surfaceContainerHigh — dialogs / bottom sheets -->
+    
+    <Color x:Key="SurfaceColor">#1A1825</Color>          
+    <Color x:Key="SurfaceVariant">#221F32</Color>        
+    <Color x:Key="SurfaceContainer">#1F1C2C</Color>      
+    <Color x:Key="SurfaceContainerHigh">#252236</Color>  
 
-    <!-- ── M3 Outline ────────────────────────────────────────────────── -->
-    <Color x:Key="SurfaceBorder">#29FFFFFF</Color>       <!-- outline -->
-    <Color x:Key="OutlineVariant">#1AFFFFFF</Color>      <!-- outlineVariant — subtle card borders -->
+   
+    <Color x:Key="SurfaceBorder">#29FFFFFF</Color>       
+    <Color x:Key="OutlineVariant">#1AFFFFFF</Color>     
 
-    <!-- ── M3 Primary ────────────────────────────────────────────────── -->
-    <Color x:Key="PrimaryStart">#A855F7</Color>          <!-- primary -->
-    <Color x:Key="PrimaryEnd">#7C3AED</Color>            <!-- primary gradient end -->
-    <Color x:Key="OnPrimary">#FFFFFF</Color>             <!-- onPrimary -->
-    <Color x:Key="PrimaryContainer">#3D1060</Color>      <!-- primaryContainer -->
-    <Color x:Key="OnPrimaryContainer">#E9C4FF</Color>    <!-- onPrimaryContainer -->
+    
+    <Color x:Key="PrimaryStart">#A855F7</Color>          
+    <Color x:Key="PrimaryEnd">#7C3AED</Color>            
+    <Color x:Key="OnPrimary">#FFFFFF</Color>            
+    <Color x:Key="PrimaryContainer">#3D1060</Color>      
+    <Color x:Key="OnPrimaryContainer">#E9C4FF</Color>    
 
-    <!-- ── M3 On-Surface / Text ──────────────────────────────────────── -->
-    <Color x:Key="PrimaryText">#F5F5F7</Color>           <!-- onSurface -->
-    <Color x:Key="SecondaryText">#8B8B9A</Color>         <!-- onSurfaceVariant -->
+    
+    <Color x:Key="PrimaryText">#F5F5F7</Color>           
+    <Color x:Key="SecondaryText">#8B8B9A</Color>         
 
-    <!-- ── M3 Tertiary — chips and tonal accents ─────────────────────── -->
-    <Color x:Key="ChipBackground">#33A855F7</Color>      <!-- tertiaryContainer (alpha) -->
-    <Color x:Key="ChipText">#C4A8F7</Color>              <!-- onTertiaryContainer -->
+    
+    <Color x:Key="ChipBackground">#33A855F7</Color>      
+    <Color x:Key="ChipText">#C4A8F7</Color>              
 
-    <!-- ── M3 State layers (8 % primary / on-surface) ───────────────── -->
+    
     <Color x:Key="StateLayerPrimary">#14A855F7</Color>
     <Color x:Key="StateLayerOnSurface">#14F5F5F7</Color>
 
-    <!-- ── Semantic ──────────────────────────────────────────────────── -->
-    <Color x:Key="ErrorColor">#FF453A</Color>            <!-- error -->
+    
+    <Color x:Key="ErrorColor">#FF453A</Color>           
     <Color x:Key="SuccessColor">#30D158</Color>
 
-    <!-- ── Chat bubbles / inputs ─────────────────────────────────────── -->
+    
     <Color x:Key="UserBubble">#2A2838</Color>
     <Color x:Key="AiBubble">#1F1A2E</Color>
     <Color x:Key="InputBackground">#141220</Color>
 
-    <!-- ── Tab bar ───────────────────────────────────────────────────── -->
+    
     <Color x:Key="TabInactive">#4A4A5A</Color>
     <Color x:Key="TabActive">#A855F7</Color>
 

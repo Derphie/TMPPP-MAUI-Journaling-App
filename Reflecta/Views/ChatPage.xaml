@@ -11,7 +11,7 @@
 
     <Grid RowDefinitions="Auto,*,Auto,Auto">
 
-        <!-- ── Header ── -->
+      
         <Border Grid.Row="0"
                 BackgroundColor="{StaticResource SurfaceColor}"
                 StrokeThickness="0" Padding="16,12">
@@ -31,7 +31,7 @@
             </HorizontalStackLayout>
         </Border>
 
-        <!-- ── Messages list ── -->
+        
         <CollectionView Grid.Row="1"
                         ItemsSource="{Binding Messages}"
                         x:Name="MessagesCollection"
@@ -56,7 +56,7 @@
             </CollectionView.EmptyView>
         </CollectionView>
 
-        <!-- ── Suggested replies ── -->
+        
         <ScrollView Grid.Row="2"
                     Orientation="Horizontal"
                     HorizontalScrollBarVisibility="Never"
@@ -82,7 +82,7 @@
             </HorizontalStackLayout>
         </ScrollView>
 
-        <!-- ── Input bar ── -->
+        
         <Border Grid.Row="3"
                 BackgroundColor="{StaticResource SurfaceColor}"
                 StrokeThickness="0" Padding="12,10">
